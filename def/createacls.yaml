@@ -1,0 +1,55 @@
+CreateAcls:
+  api: 0
+  version: 0
+  req:
+  - struct: CreateAclsRequest
+    fields:
+    - name: Creations
+      type: '[]Creations'
+      version: 0
+  - struct: Creations
+    fields:
+    - name: ResourceType
+      type: int8
+      version: 0
+    - name: ResourceName
+      type: compact_string
+      version: 0
+    - name: ResourcePatternType
+      type: int8
+      version: 0
+    - name: Principal
+      type: compact_string
+      version: 0
+    - name: Host
+      type: compact_string
+      version: 0
+    - name: Operation
+      type: int8
+      version: 0
+    - name: PermissionType
+      type: int8
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  res:
+  - struct: CreateAclsResponse
+    fields:
+    - name: ThrottleTimeMs
+      type: int32
+      version: 0
+    - name: Results
+      type: '[]Results'
+      version: 0
+  - struct: Results
+    fields:
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: ErrorMessage
+      type: compact_nullable_string
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0

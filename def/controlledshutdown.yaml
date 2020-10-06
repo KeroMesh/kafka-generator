@@ -1,0 +1,35 @@
+ControlledShutdown:
+  api: 0
+  version: 0
+  req:
+  - struct: ControlledShutdownRequest
+    fields:
+    - name: BrokerId
+      type: int32
+      version: 0
+    - name: BrokerEpoch
+      type: int64
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  res:
+  - struct: ControlledShutdownResponse
+    fields:
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: RemainingPartitions
+      type: '[]RemainingPartitions'
+      version: 0
+  - struct: RemainingPartitions
+    fields:
+    - name: TopicName
+      type: compact_string
+      version: 0
+    - name: PartitionIndex
+      type: int32
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0

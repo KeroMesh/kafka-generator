@@ -1,0 +1,39 @@
+InitProducerId:
+  api: 0
+  version: 0
+  req:
+  - struct: InitProducerIdRequest
+    fields:
+    - name: TransactionalId
+      type: compact_nullable_string
+      version: 0
+    - name: TransactionTimeoutMs
+      type: int32
+      version: 0
+    - name: ProducerId
+      type: int64
+      version: 0
+    - name: ProducerEpoch
+      type: int16
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  res:
+  - struct: InitProducerIdResponse
+    fields:
+    - name: ThrottleTimeMs
+      type: int32
+      version: 0
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: ProducerId
+      type: int64
+      version: 0
+    - name: ProducerEpoch
+      type: int16
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0

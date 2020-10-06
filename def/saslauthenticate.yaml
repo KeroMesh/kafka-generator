@@ -1,0 +1,30 @@
+SaslAuthenticate:
+  api: 0
+  version: 0
+  req:
+  - struct: SaslAuthenticateRequest
+    fields:
+    - name: AuthBytes
+      type: compact_bytes
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  res:
+  - struct: SaslAuthenticateResponse
+    fields:
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: ErrorMessage
+      type: compact_nullable_string
+      version: 0
+    - name: AuthBytes
+      type: compact_bytes
+      version: 0
+    - name: SessionLifetimeMs
+      type: int64
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0

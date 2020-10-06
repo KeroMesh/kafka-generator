@@ -1,0 +1,35 @@
+DeleteTopics:
+  api: 0
+  version: 0
+  req:
+  - struct: DeleteTopicsRequest
+    fields:
+    - name: TopicNames
+      type: compact_string
+      version: 0
+    - name: TimeoutMs
+      type: int32
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  res:
+  - struct: DeleteTopicsResponse
+    fields:
+    - name: ThrottleTimeMs
+      type: int32
+      version: 0
+    - name: Responses
+      type: '[]Responses'
+      version: 0
+  - struct: Responses
+    fields:
+    - name: Name
+      type: compact_string
+      version: 0
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0

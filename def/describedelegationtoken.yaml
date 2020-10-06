@@ -1,0 +1,72 @@
+DescribeDelegationToken:
+  api: 0
+  version: 0
+  req:
+  - struct: DescribeDelegationTokenRequest
+    fields:
+    - name: Owners
+      type: '[]Owners'
+      version: 0
+  - struct: Owners
+    fields:
+    - name: PrincipalType
+      type: compact_string
+      version: 0
+    - name: PrincipalName
+      type: compact_string
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  res:
+  - struct: DescribeDelegationTokenResponse
+    fields:
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: Tokens
+      type: '[]Tokens'
+      version: 0
+    - name: ThrottleTimeMs
+      type: int32
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  - struct: Tokens
+    fields:
+    - name: PrincipalType
+      type: compact_string
+      version: 0
+    - name: PrincipalName
+      type: compact_string
+      version: 0
+    - name: IssueTimestamp
+      type: int64
+      version: 0
+    - name: ExpiryTimestamp
+      type: int64
+      version: 0
+    - name: MaxTimestamp
+      type: int64
+      version: 0
+    - name: TokenId
+      type: compact_string
+      version: 0
+    - name: Hmac
+      type: compact_bytes
+      version: 0
+    - name: Renewers
+      type: '[]Renewers'
+      version: 0
+  - struct: Renewers
+    fields:
+    - name: PrincipalType
+      type: compact_string
+      version: 0
+    - name: PrincipalName
+      type: compact_string
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0

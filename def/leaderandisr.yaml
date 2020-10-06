@@ -1,0 +1,101 @@
+LeaderAndIsr:
+  api: 0
+  version: 0
+  req:
+  - struct: LeaderAndIsrRequest
+    fields:
+    - name: ControllerId
+      type: int32
+      version: 0
+    - name: ControllerEpoch
+      type: int32
+      version: 0
+    - name: BrokerEpoch
+      type: int64
+      version: 0
+    - name: TopicStates
+      type: '[]TopicStates'
+      version: 0
+    - name: LiveLeaders
+      type: '[]LiveLeaders'
+      version: 0
+  - struct: LiveLeaders
+    fields:
+    - name: BrokerId
+      type: int32
+      version: 0
+    - name: HostName
+      type: compact_string
+      version: 0
+    - name: Port
+      type: int32
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  - struct: TopicStates
+    fields:
+    - name: TopicName
+      type: compact_string
+      version: 0
+    - name: PartitionStates
+      type: '[]PartitionStates'
+      version: 0
+  - struct: PartitionStates
+    fields:
+    - name: PartitionIndex
+      type: int32
+      version: 0
+    - name: ControllerEpoch
+      type: int32
+      version: 0
+    - name: Leader
+      type: int32
+      version: 0
+    - name: LeaderEpoch
+      type: int32
+      version: 0
+    - name: Isr
+      type: int32
+      version: 0
+    - name: ZkVersion
+      type: int32
+      version: 0
+    - name: Replicas
+      type: int32
+      version: 0
+    - name: AddingReplicas
+      type: int32
+      version: 0
+    - name: RemovingReplicas
+      type: int32
+      version: 0
+    - name: IsNew
+      type: bool
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  res:
+  - struct: LeaderAndIsrResponse
+    fields:
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: PartitionErrors
+      type: '[]PartitionErrors'
+      version: 0
+  - struct: PartitionErrors
+    fields:
+    - name: TopicName
+      type: compact_string
+      version: 0
+    - name: PartitionIndex
+      type: int32
+      version: 0
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0

@@ -1,0 +1,87 @@
+DeleteAcls:
+  api: 0
+  version: 0
+  req:
+  - struct: DeleteAclsRequest
+    fields:
+    - name: Filters
+      type: '[]Filters'
+      version: 0
+  - struct: Filters
+    fields:
+    - name: ResourceTypeFilter
+      type: int8
+      version: 0
+    - name: ResourceNameFilter
+      type: compact_nullable_string
+      version: 0
+    - name: PatternTypeFilter
+      type: int8
+      version: 0
+    - name: PrincipalFilter
+      type: compact_nullable_string
+      version: 0
+    - name: HostFilter
+      type: compact_nullable_string
+      version: 0
+    - name: Operation
+      type: int8
+      version: 0
+    - name: PermissionType
+      type: int8
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  res:
+  - struct: DeleteAclsResponse
+    fields:
+    - name: ThrottleTimeMs
+      type: int32
+      version: 0
+    - name: FilterResults
+      type: '[]FilterResults'
+      version: 0
+  - struct: FilterResults
+    fields:
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: ErrorMessage
+      type: compact_nullable_string
+      version: 0
+    - name: MatchingAcls
+      type: '[]MatchingAcls'
+      version: 0
+  - struct: MatchingAcls
+    fields:
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: ErrorMessage
+      type: compact_nullable_string
+      version: 0
+    - name: ResourceType
+      type: int8
+      version: 0
+    - name: ResourceName
+      type: compact_string
+      version: 0
+    - name: PatternType
+      type: int8
+      version: 0
+    - name: Principal
+      type: compact_string
+      version: 0
+    - name: Host
+      type: compact_string
+      version: 0
+    - name: Operation
+      type: int8
+      version: 0
+    - name: PermissionType
+      type: int8
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0

@@ -1,0 +1,18 @@
+SaslHandshake:
+  api: 0
+  version: 0
+  req:
+  - struct: SaslHandshakeRequest
+    fields:
+    - name: Mechanism
+      type: string
+      version: 0
+  res:
+  - struct: SaslHandshakeResponse
+    fields:
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: Mechanisms
+      type: string
+      version: 0

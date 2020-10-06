@@ -1,0 +1,65 @@
+DeleteRecords:
+  api: 0
+  version: 0
+  req:
+  - struct: DeleteRecordsRequest
+    fields:
+    - name: Topics
+      type: '[]Topics'
+      version: 0
+    - name: TimeoutMs
+      type: int32
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  - struct: Topics
+    fields:
+    - name: Name
+      type: compact_string
+      version: 0
+    - name: Partitions
+      type: '[]Partitions'
+      version: 0
+  - struct: Partitions
+    fields:
+    - name: PartitionIndex
+      type: int32
+      version: 0
+    - name: Offset
+      type: int64
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  res:
+  - struct: DeleteRecordsResponse
+    fields:
+    - name: ThrottleTimeMs
+      type: int32
+      version: 0
+    - name: Topics
+      type: '[]Topics'
+      version: 0
+  - struct: Topics
+    fields:
+    - name: Name
+      type: compact_string
+      version: 0
+    - name: Partitions
+      type: '[]Partitions'
+      version: 0
+  - struct: Partitions
+    fields:
+    - name: PartitionIndex
+      type: int32
+      version: 0
+    - name: LowWatermark
+      type: int64
+      version: 0
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0

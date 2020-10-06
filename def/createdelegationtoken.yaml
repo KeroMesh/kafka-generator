@@ -1,0 +1,59 @@
+CreateDelegationToken:
+  api: 0
+  version: 0
+  req:
+  - struct: CreateDelegationTokenRequest
+    fields:
+    - name: Renewers
+      type: '[]Renewers'
+      version: 0
+    - name: MaxLifetimeMs
+      type: int64
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  - struct: Renewers
+    fields:
+    - name: PrincipalType
+      type: compact_string
+      version: 0
+    - name: PrincipalName
+      type: compact_string
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  res:
+  - struct: CreateDelegationTokenResponse
+    fields:
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: PrincipalType
+      type: compact_string
+      version: 0
+    - name: PrincipalName
+      type: compact_string
+      version: 0
+    - name: IssueTimestampMs
+      type: int64
+      version: 0
+    - name: ExpiryTimestampMs
+      type: int64
+      version: 0
+    - name: MaxTimestampMs
+      type: int64
+      version: 0
+    - name: TokenId
+      type: compact_string
+      version: 0
+    - name: Hmac
+      type: compact_bytes
+      version: 0
+    - name: ThrottleTimeMs
+      type: int32
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0

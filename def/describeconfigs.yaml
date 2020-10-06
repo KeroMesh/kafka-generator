@@ -1,0 +1,89 @@
+DescribeConfigs:
+  api: 0
+  version: 0
+  req:
+  - struct: DescribeConfigsRequest
+    fields:
+    - name: Resources
+      type: '[]Resources'
+      version: 0
+    - name: IncludeSynonyms
+      type: bool
+      version: 0
+    - name: IncludeDocumentation
+      type: bool
+      version: 0
+  - struct: Resources
+    fields:
+    - name: ResourceType
+      type: int8
+      version: 0
+    - name: ResourceName
+      type: string
+      version: 0
+    - name: ConfigNames
+      type: string
+      version: 0
+  res:
+  - struct: DescribeConfigsResponse
+    fields:
+    - name: ThrottleTimeMs
+      type: int32
+      version: 0
+    - name: Resources
+      type: '[]Resources'
+      version: 0
+  - struct: Resources
+    fields:
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: ErrorMessage
+      type: nullable_string
+      version: 0
+    - name: ResourceType
+      type: int8
+      version: 0
+    - name: ResourceName
+      type: string
+      version: 0
+    - name: ConfigEntries
+      type: '[]ConfigEntries'
+      version: 0
+  - struct: ConfigEntries
+    fields:
+    - name: ConfigName
+      type: string
+      version: 0
+    - name: ConfigValue
+      type: nullable_string
+      version: 0
+    - name: ReadOnly
+      type: bool
+      version: 0
+    - name: ConfigSource
+      type: int8
+      version: 0
+    - name: IsSensitive
+      type: bool
+      version: 0
+    - name: ConfigSynonyms
+      type: '[]ConfigSynonyms'
+      version: 0
+    - name: ConfigType
+      type: int8
+      version: 0
+    - name: ConfigDocumentation
+      type: nullable_string
+      version: 0
+  - struct: ConfigSynonyms
+    fields:
+    - name: ConfigName
+      type: string
+      version: 0
+    - name: ConfigValue
+      type: nullable_string
+      version: 0
+    - name: ConfigSource
+      type: int8
+      version: 0

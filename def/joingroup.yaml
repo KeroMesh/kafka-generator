@@ -1,0 +1,79 @@
+JoinGroup:
+  api: 0
+  version: 0
+  req:
+  - struct: JoinGroupRequest
+    fields:
+    - name: GroupId
+      type: compact_string
+      version: 0
+    - name: SessionTimeoutMs
+      type: int32
+      version: 0
+    - name: RebalanceTimeoutMs
+      type: int32
+      version: 0
+    - name: MemberId
+      type: compact_string
+      version: 0
+    - name: GroupInstanceId
+      type: compact_nullable_string
+      version: 0
+    - name: ProtocolType
+      type: compact_string
+      version: 0
+    - name: Protocols
+      type: '[]Protocols'
+      version: 0
+  - struct: Protocols
+    fields:
+    - name: Name
+      type: compact_string
+      version: 0
+    - name: Metadata
+      type: compact_bytes
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  res:
+  - struct: JoinGroupResponse
+    fields:
+    - name: ThrottleTimeMs
+      type: int32
+      version: 0
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: GenerationId
+      type: int32
+      version: 0
+    - name: ProtocolType
+      type: compact_nullable_string
+      version: 0
+    - name: ProtocolName
+      type: compact_nullable_string
+      version: 0
+    - name: Leader
+      type: compact_string
+      version: 0
+    - name: MemberId
+      type: compact_string
+      version: 0
+    - name: Members
+      type: '[]Members'
+      version: 0
+  - struct: Members
+    fields:
+    - name: MemberId
+      type: compact_string
+      version: 0
+    - name: GroupInstanceId
+      type: compact_nullable_string
+      version: 0
+    - name: Metadata
+      type: compact_bytes
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0

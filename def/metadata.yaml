@@ -1,0 +1,116 @@
+Metadata:
+  api: 0
+  version: 0
+  req:
+  - struct: MetadataRequest
+    fields:
+    - name: Topics
+      type: '[]Topics'
+      version: 0
+    - name: AllowAutoTopicCreation
+      type: bool
+      version: 0
+    - name: IncludeClusterAuthorizedOperations
+      type: bool
+      version: 0
+    - name: IncludeTopicAuthorizedOperations
+      type: bool
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  - struct: Topics
+    fields:
+    - name: Name
+      type: compact_string
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  res:
+  - struct: MetadataResponse
+    fields:
+    - name: ThrottleTimeMs
+      type: int32
+      version: 0
+    - name: Brokers
+      type: '[]Brokers'
+      version: 0
+    - name: ClusterId
+      type: compact_nullable_string
+      version: 0
+    - name: ControllerId
+      type: int32
+      version: 0
+    - name: Topics
+      type: '[]Topics'
+      version: 0
+    - name: ClusterAuthorizedOperations
+      type: int32
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  - struct: Topics
+    fields:
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: Name
+      type: compact_string
+      version: 0
+    - name: IsInternal
+      type: bool
+      version: 0
+    - name: Partitions
+      type: '[]Partitions'
+      version: 0
+    - name: TopicAuthorizedOperations
+      type: int32
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  - struct: Partitions
+    fields:
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: PartitionIndex
+      type: int32
+      version: 0
+    - name: LeaderId
+      type: int32
+      version: 0
+    - name: LeaderEpoch
+      type: int32
+      version: 0
+    - name: ReplicaNodes
+      type: int32
+      version: 0
+    - name: IsrNodes
+      type: int32
+      version: 0
+    - name: OfflineReplicas
+      type: int32
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  - struct: Brokers
+    fields:
+    - name: NodeId
+      type: int32
+      version: 0
+    - name: Host
+      type: compact_string
+      version: 0
+    - name: Port
+      type: int32
+      version: 0
+    - name: Rack
+      type: compact_nullable_string
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
