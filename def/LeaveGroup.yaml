@@ -1,0 +1,49 @@
+LeaveGroup:
+  key: 0
+  version: 0
+  req:
+  - struct: LeaveGroupRequest
+    fields:
+    - name: GroupId
+      type: compact_string
+      version: 0
+    - name: Members
+      type: '[]Members'
+      version: 0
+  - struct: Members
+    fields:
+    - name: MemberId
+      type: compact_string
+      version: 0
+    - name: GroupInstanceId
+      type: compact_nullable_string
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0
+  res:
+  - struct: LeaveGroupResponse
+    fields:
+    - name: ThrottleTimeMs
+      type: int32
+      version: 0
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: Members
+      type: '[]Members'
+      version: 0
+  - struct: Members
+    fields:
+    - name: MemberId
+      type: compact_string
+      version: 0
+    - name: GroupInstanceId
+      type: compact_nullable_string
+      version: 0
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: TagBuffer
+      type: tag_buffer
+      version: 0

@@ -1,0 +1,50 @@
+AlterReplicaLogDirs:
+  key: 0
+  version: 0
+  req:
+  - struct: AlterReplicaLogDirsRequest
+    fields:
+    - name: LogDirs
+      type: '[]LogDirs'
+      version: 0
+  - struct: LogDirs
+    fields:
+    - name: LogDir
+      type: string
+      version: 0
+    - name: Topics
+      type: '[]Topics'
+      version: 0
+  - struct: Topics
+    fields:
+    - name: Topic
+      type: string
+      version: 0
+    - name: Partitions
+      type: int32
+      version: 0
+  res:
+  - struct: AlterReplicaLogDirsResponse
+    fields:
+    - name: ThrottleTimeMs
+      type: int32
+      version: 0
+    - name: Topics
+      type: '[]Topics'
+      version: 0
+  - struct: Topics
+    fields:
+    - name: Topic
+      type: string
+      version: 0
+    - name: Partitions
+      type: '[]Partitions'
+      version: 0
+  - struct: Partitions
+    fields:
+    - name: Partition
+      type: int32
+      version: 0
+    - name: ErrorCode
+      type: int16
+      version: 0

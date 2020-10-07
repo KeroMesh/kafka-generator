@@ -1,0 +1,68 @@
+ListOffsets:
+  key: 0
+  version: 0
+  req:
+  - struct: ListOffsetsRequest
+    fields:
+    - name: ReplicaId
+      type: int32
+      version: 0
+    - name: IsolationLevel
+      type: int8
+      version: 0
+    - name: Topics
+      type: '[]Topics'
+      version: 0
+  - struct: Topics
+    fields:
+    - name: Topic
+      type: string
+      version: 0
+    - name: Partitions
+      type: '[]Partitions'
+      version: 0
+  - struct: Partitions
+    fields:
+    - name: Partition
+      type: int32
+      version: 0
+    - name: CurrentLeaderEpoch
+      type: int32
+      version: 0
+    - name: Timestamp
+      type: int64
+      version: 0
+  res:
+  - struct: ListOffsetsResponse
+    fields:
+    - name: ThrottleTimeMs
+      type: int32
+      version: 0
+    - name: Responses
+      type: '[]Responses'
+      version: 0
+  - struct: Responses
+    fields:
+    - name: Topic
+      type: string
+      version: 0
+    - name: PartitionResponses
+      type: '[]PartitionResponses'
+      version: 0
+  - struct: PartitionResponses
+    fields:
+    - name: Partition
+      type: int32
+      version: 0
+    - name: ErrorCode
+      type: int16
+      version: 0
+    - name: Timestamp
+      type: int64
+      version: 0
+    - name: Offset
+      type: int64
+      version: 0
+    - name: LeaderEpoch
+      type: int32
+      version: 0

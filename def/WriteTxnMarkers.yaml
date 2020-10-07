@@ -1,0 +1,64 @@
+WriteTxnMarkers:
+  key: 0
+  version: 0
+  req:
+  - struct: WriteTxnMarkersRequest
+    fields:
+    - name: Markers
+      type: '[]Markers'
+      version: 0
+  - struct: Markers
+    fields:
+    - name: ProducerId
+      type: int64
+      version: 0
+    - name: ProducerEpoch
+      type: int16
+      version: 0
+    - name: TransactionResult
+      type: bool
+      version: 0
+    - name: Topics
+      type: '[]Topics'
+      version: 0
+    - name: CoordinatorEpoch
+      type: int32
+      version: 0
+  - struct: Topics
+    fields:
+    - name: Name
+      type: string
+      version: 0
+    - name: PartitionIndexes
+      type: int32
+      version: 0
+  res:
+  - struct: WriteTxnMarkersResponse
+    fields:
+    - name: Markers
+      type: '[]Markers'
+      version: 0
+  - struct: Markers
+    fields:
+    - name: ProducerId
+      type: int64
+      version: 0
+    - name: Topics
+      type: '[]Topics'
+      version: 0
+  - struct: Topics
+    fields:
+    - name: Name
+      type: string
+      version: 0
+    - name: Partitions
+      type: '[]Partitions'
+      version: 0
+  - struct: Partitions
+    fields:
+    - name: PartitionIndex
+      type: int32
+      version: 0
+    - name: ErrorCode
+      type: int16
+      version: 0
