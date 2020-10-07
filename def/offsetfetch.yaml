@@ -1,5 +1,5 @@
 OffsetFetch:
-  api: 0
+  key: 0
   version: 0
   req:
   - struct: OffsetFetchRequest

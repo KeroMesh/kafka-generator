@@ -1,6 +1,6 @@
 Fetch:
-  api: 0
-  version: 0
+  key: 1
+  version: 11
   req:
   - struct: FetchRequest
     fields:
@@ -15,33 +15,33 @@ Fetch:
       version: 0
     - name: MaxBytes
       type: int32
-      version: 0
+      version: 3
     - name: IsolationLevel
       type: int8
-      version: 0
+      version: 4
     - name: SessionId
       type: int32
-      version: 0
+      version: 7
     - name: SessionEpoch
       type: int32
-      version: 0
+      version: 7
     - name: Topics
       type: '[]Topics'
       version: 0
     - name: ForgottenTopicsData
       type: '[]ForgottenTopicsData'
-      version: 0
+      version: 7
     - name: RackId
       type: string
-      version: 0
+      version: 11
   - struct: ForgottenTopicsData
     fields:
     - name: Topic
       type: string
-      version: 0
+      version: 7
     - name: Partitions
       type: int32
-      version: 0
+      version: 7
   - struct: Topics
     fields:
     - name: Topic
@@ -57,13 +57,13 @@ Fetch:
       version: 0
     - name: CurrentLeaderEpoch
       type: int32
-      version: 0
+      version: 9
     - name: FetchOffset
       type: int64
       version: 0
     - name: LogStartOffset
       type: int64
-      version: 0
+      version: 5
     - name: PartitionMaxBytes
       type: int32
       version: 0

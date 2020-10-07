@@ -1,6 +1,6 @@
 Metadata:
-  api: 0
-  version: 0
+  key: 3
+  version: 9
   req:
   - struct: MetadataRequest
     fields:
@@ -9,16 +9,16 @@ Metadata:
       version: 0
     - name: AllowAutoTopicCreation
       type: bool
-      version: 0
+      version: 4
     - name: IncludeClusterAuthorizedOperations
       type: bool
-      version: 0
+      version: 8
     - name: IncludeTopicAuthorizedOperations
       type: bool
-      version: 0
+      version: 8
     - name: TagBuffer
       type: tag_buffer
-      version: 0
+      version: 9
   - struct: Topics
     fields:
     - name: Name
@@ -26,7 +26,7 @@ Metadata:
       version: 0
     - name: TagBuffer
       type: tag_buffer
-      version: 0
+      version: 9
   res:
   - struct: MetadataResponse
     fields:
