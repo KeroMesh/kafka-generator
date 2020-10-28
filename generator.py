@@ -11,6 +11,8 @@ def generate(name, spec):
 
 import (
     "io"
+    "github.com/dfarr/kafka-lib/pkg/message"
+    "github.com/dfarr/kafka-lib/internal/wire"
 )
 
 
@@ -51,11 +53,10 @@ def generateStruct(structs):
 @expand
 def generateDecode(name, structs):
     hasList = any([f["type"].startswith("[]") for s in structs for f in s["fields"]])
-    indexes = ["i", "j", "k", "l", "m", "n"]
-
     structs = {struct["struct"]: struct["fields"] for struct in structs}
+    indexes = ["i", "j", "k", "l", "m", "n", "o", "p", "q"]
 
-    yield f"func (msg *{name}) Decode(r io.Reader, apiVer int16, size int32) error {{"
+    yield f"func (msg *{name}) Decode(r io.Reader, apiVer int16) error {{"
     if hasList:
         yield "    var len int32"
     yield "    var err error"
@@ -68,25 +69,21 @@ def generateDecode(name, structs):
 @expand
 def _generateDecode(name, structs, indexes, prefix, version=0, indent=1):
     isOpen = False
+    _version = version
 
     for field in structs[name]:
-        if field["version"] > version and isOpen:
+        if _version not in (version, field["version"]):
             indent = indent - 1
             isOpen = False
             yield spaces(indent) + "}"
-        if field["version"] > version:
+        if field["version"] not in (version, _version):
             yield spaces(indent) + f"if apiVer > {field['version']-1} {{"
-            version = field["version"]
             indent = indent + 1
             isOpen = True
-        if field["version"] < version:
-            version = field["version"]
-            indent = indent - 1
-            isOpen = False
-            yield spaces(indent) + "}"
+        _version = field["version"]
 
         if field["type"] in primitives:
-            yield spaces(indent) + f"if {prefix}.{field['name']}, err = {functions.get(field['type'])}(r); err != nil {{"
+            yield spaces(indent) + f"if {prefix}.{field['name']}, err = {readFunctions.get(field['type'])}(r); err != nil {{"
             yield spaces(indent) + "    return err"
             yield spaces(indent) + "}"
         elif field["type"].startswith("[]"):
@@ -96,18 +93,62 @@ def _generateDecode(name, structs, indexes, prefix, version=0, indent=1):
             yield spaces(indent) + "}"
             yield spaces(indent) + f"{prefix}.{field['name']} = make({field['type']}, len)"
             yield spaces(indent) + f"for {index} := range {prefix}.{field['name']} {{"
-            yield _generateDecode(field["type"][2:], structs, indexes, f"{prefix}.{field['name']}[{index}]", version=version, indent=indent+1)
+            yield _generateDecode(field["type"][2:], structs, indexes, f"{prefix}.{field['name']}[{index}]", version=field["version"], indent=indent+1)
             yield spaces(indent) + "}"
         else:
             yield spaces(indent) + f"{prefix}.{field['name']} = {field['type']}{{}}"
-            yield _generateDecode(field["type"], structs, indexes, f"{prefix}.{field['name']}", version=version, indent=indent)
+            yield _generateDecode(field["type"], structs, indexes, f"{prefix}.{field['name']}", version=field["version"], indent=indent)
 
     if isOpen:
         yield spaces(indent-1) + "}"
 
 @expand
 def generateEncode(name, structs):
-    yield "// Todo: generate encode function"
+    structs = {struct["struct"]: struct["fields"] for struct in structs}
+    indexes = ["i", "j", "k", "l", "m", "n", "o", "p", "q"]
+
+    yield f"func (msg *{name}) Encode(w io.Writer, apiVer int16) error {{"
+    yield "    var err error"
+    yield ""
+    yield _generateEncode(name, structs, indexes, "msg")
+    yield ""
+    yield "    return nil"
+    yield "}\n"
+
+@expand
+def _generateEncode(name, structs, indexes, prefix, version=0, indent=1):
+    isOpen = False
+    _version = version
+
+    for field in structs[name]:
+        if _version not in (version, field["version"]):
+            indent = indent - 1
+            isOpen = False
+            yield spaces(indent) + "}"
+        if field["version"] not in (version, _version):
+            yield spaces(indent) + f"if apiVer > {field['version']-1} {{"
+            indent = indent + 1
+            isOpen = True
+        _version = field["version"]
+
+        if field["type"] in primitives:
+            yield spaces(indent) + f"if err = {writeFunctions.get(field['type'])}(w, {prefix}.{field['name']}); err != nil {{"
+            yield spaces(indent) + "    return err"
+            yield spaces(indent) + "}"
+        elif field["type"].startswith("[]"):
+            index = indexes.pop(0)
+            yield spaces(indent) + f"if err = wire.WriteInt32(w, int32(len({prefix}.{field['name']}))); err != nil {{"
+            yield spaces(indent) + "    return err"
+            yield spaces(indent) + "}"
+            yield spaces(indent) + f"for {index} := range {prefix}.{field['name']} {{"
+            yield _generateEncode(field["type"][2:], structs, indexes, f"{prefix}.{field['name']}[{index}]", version=version, indent=indent+1)
+            yield spaces(indent) + "}"
+        else:
+            yield spaces(indent) + f"{prefix}.{field['name']} = {field['type']}{{}}"
+            yield _generateEncode(field["type"], structs, indexes, f"{prefix}.{field['name']}", version=version, indent=indent)
+
+    if isOpen:
+        yield spaces(indent-1) + "}"
 
 
 #####################################################################
@@ -119,6 +160,7 @@ primitives = (
     "int8",
     "int16",
     "int32",
+    "[]int32",
     "int64",
     "uint32",
     "varint",
@@ -142,6 +184,7 @@ types = {
     "int8": "int8",
     "int16": "int16",
     "int32": "int32",
+    "[]int32": "[]int32",
     "int64": "int64",
     "uint32": "uint32",
     "varint": "int",
@@ -150,21 +193,22 @@ types = {
     "float64": "float64",
     "string": "string",
     "compact_string": "string",
-    "nullable_string": "string",
-    "compact_nullable_string": "string",
+    "nullable_string": "*string",
+    "compact_nullable_string": "*string",
     "bytes": "[]byte",
     "compact_bytes": "[]byte",
     "nullable_bytes": "[]byte",
     "compact_nullable_bytes": "[]byte",
     "records": "[]byte",
-    "tag_buffer": "TagBuffer"
+    "tag_buffer": "message.TagBuffer"
 }
 
-functions = {
+readFunctions = {
     "bool": "wire.ReadBool",
     "int8": "wire.ReadInt8",
     "int16": "wire.ReadInt16",
     "int32": "wire.ReadInt32",
+    "[]int32": "wire.ReadInt32Array",
     "int64": "wire.ReadInt64",
     "uint32": "wire.ReadUInt32",
     "varint": "wire.ReadVarInt",
@@ -173,14 +217,38 @@ functions = {
     "float64": "wire.ReadFloat64",
     "string": "wire.ReadString",
     "compact_string": "wire.ReadString",
-    "nullable_string": "wire.ReadString",
-    "compact_nullable_string": "wire.ReadString",
+    "nullable_string": "wire.ReadNullableString",
+    "compact_nullable_string": "wire.ReadNullableString",
     "bytes": "wire.ReadBytes",
     "compact_bytes": "wire.ReadBytes",
     "nullable_bytes": "wire.ReadBytes",
     "compact_nullable_bytes": "wire.ReadBytes",
     "records": "wire.ReadBytes",
     "tag_buffer": "wire.ReadTagBuffer"
+}
+
+writeFunctions = {
+    "bool": "wire.WriteBool",
+    "int8": "wire.WriteInt8",
+    "int16": "wire.WriteInt16",
+    "int32": "wire.WriteInt32",
+    "[]int32": "wire.WriteInt32Array",
+    "int64": "wire.WriteInt64",
+    "uint32": "wire.WriteUInt32",
+    "varint": "wire.WriteVarInt",
+    "varlong": "wire.WriteVarLong",
+    "uuid": "wire.WriteUUID",
+    "float64": "wire.WriteFloat64",
+    "string": "wire.WriteString",
+    "compact_string": "wire.WriteString",
+    "nullable_string": "wire.WriteNullableString",
+    "compact_nullable_string": "wire.WriteNullableString",
+    "bytes": "wire.WriteBytes",
+    "compact_bytes": "wire.WriteBytes",
+    "nullable_bytes": "wire.WriteBytes",
+    "compact_nullable_bytes": "wire.WriteBytes",
+    "records": "wire.WriteBytes",
+    "tag_buffer": "wire.WriteTagBuffer"
 }
 
 

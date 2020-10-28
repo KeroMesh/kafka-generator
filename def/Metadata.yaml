@@ -5,7 +5,7 @@ Metadata:
   - struct: MetadataRequest
     fields:
     - name: Topics
-      type: '[]Topics'
+      type: '[]RequestTopic'
       version: 0
     - name: AllowAutoTopicCreation
       type: bool
@@ -19,7 +19,7 @@ Metadata:
     - name: TagBuffer
       type: tag_buffer
       version: 9
-  - struct: Topics
+  - struct: RequestTopic
     fields:
     - name: Name
       type: compact_string
@@ -32,26 +32,26 @@ Metadata:
     fields:
     - name: ThrottleTimeMs
       type: int32
-      version: 0
+      version: 3
     - name: Brokers
-      type: '[]Brokers'
+      type: '[]Broker'
       version: 0
     - name: ClusterId
       type: compact_nullable_string
-      version: 0
+      version: 2
     - name: ControllerId
       type: int32
-      version: 0
+      version: 1
     - name: Topics
-      type: '[]Topics'
+      type: '[]ResponseTopic'
       version: 0
     - name: ClusterAuthorizedOperations
       type: int32
-      version: 0
+      version: 8
     - name: TagBuffer
       type: tag_buffer
-      version: 0
-  - struct: Topics
+      version: 9
+  - struct: ResponseTopic
     fields:
     - name: ErrorCode
       type: int16
@@ -61,17 +61,17 @@ Metadata:
       version: 0
     - name: IsInternal
       type: bool
-      version: 0
+      version: 1
     - name: Partitions
-      type: '[]Partitions'
+      type: '[]Partition'
       version: 0
     - name: TopicAuthorizedOperations
       type: int32
-      version: 0
+      version: 8
     - name: TagBuffer
       type: tag_buffer
-      version: 0
-  - struct: Partitions
+      version: 9
+  - struct: Partition
     fields:
     - name: ErrorCode
       type: int16
@@ -84,20 +84,20 @@ Metadata:
       version: 0
     - name: LeaderEpoch
       type: int32
-      version: 0
+      version: 7
     - name: ReplicaNodes
-      type: int32
+      type: '[]int32'
       version: 0
     - name: IsrNodes
-      type: int32
+      type: '[]int32'
       version: 0
     - name: OfflineReplicas
-      type: int32
-      version: 0
+      type: '[]int32'
+      version: 5
     - name: TagBuffer
       type: tag_buffer
-      version: 0
-  - struct: Brokers
+      version: 9
+  - struct: Broker
     fields:
     - name: NodeId
       type: int32
@@ -110,7 +110,7 @@ Metadata:
       version: 0
     - name: Rack
       type: compact_nullable_string
-      version: 0
+      version: 1
     - name: TagBuffer
       type: tag_buffer
-      version: 0
+      version: 9
