@@ -1,12 +1,12 @@
 Produce:
   key: 0
-  version: 0
+  version: 8
   req:
   - struct: ProduceRequest
     fields:
     - name: TransactionalId
       type: nullable_string
-      version: 0
+      version: 3
     - name: Acks
       type: int16
       version: 0
@@ -36,20 +36,20 @@ Produce:
   - struct: ProduceResponse
     fields:
     - name: Responses
-      type: '[]Responses'
+      type: '[]Response'
       version: 0
     - name: ThrottleTimeMs
       type: int32
-      version: 0
-  - struct: Responses
+      version: 1
+  - struct: Response
     fields:
     - name: Topic
       type: string
       version: 0
     - name: PartitionResponses
-      type: '[]PartitionResponses'
+      type: '[]PartitionResponse'
       version: 0
-  - struct: PartitionResponses
+  - struct: PartitionResponse
     fields:
     - name: Partition
       type: int32
@@ -62,21 +62,21 @@ Produce:
       version: 0
     - name: LogAppendTime
       type: int64
-      version: 0
+      version: 2
     - name: LogStartOffset
       type: int64
-      version: 0
+      version: 5
     - name: RecordErrors
-      type: '[]RecordErrors'
-      version: 0
+      type: '[]RecordError'
+      version: 8
     - name: ErrorMessage
       type: nullable_string
-      version: 0
-  - struct: RecordErrors
+      version: 8
+  - struct: RecordError
     fields:
     - name: BatchIndex
       type: int32
-      version: 0
+      version: 8
     - name: BatchIndexErrorMessage
       type: nullable_string
-      version: 0
+      version: 8

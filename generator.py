@@ -11,8 +11,8 @@ def generate(name, spec):
 
 import (
     "io"
-    "github.com/dfarr/kafka-lib/pkg/message"
-    "github.com/dfarr/kafka-lib/internal/wire"
+    "github.com/keromesh/kafka-lib/pkg/message"
+    "github.com/keromesh/kafka-lib/internal/wire"
 )
 
 
@@ -144,7 +144,6 @@ def _generateEncode(name, structs, indexes, prefix, version=0, indent=1):
             yield _generateEncode(field["type"][2:], structs, indexes, f"{prefix}.{field['name']}[{index}]", version=version, indent=indent+1)
             yield spaces(indent) + "}"
         else:
-            yield spaces(indent) + f"{prefix}.{field['name']} = {field['type']}{{}}"
             yield _generateEncode(field["type"], structs, indexes, f"{prefix}.{field['name']}", version=version, indent=indent)
 
     if isOpen:
@@ -221,9 +220,9 @@ readFunctions = {
     "compact_nullable_string": "wire.ReadNullableString",
     "bytes": "wire.ReadBytes",
     "compact_bytes": "wire.ReadBytes",
-    "nullable_bytes": "wire.ReadBytes",
-    "compact_nullable_bytes": "wire.ReadBytes",
-    "records": "wire.ReadBytes",
+    "nullable_bytes": "wire.ReadNullableBytes",
+    "compact_nullable_bytes": "wire.ReadNullableBytes",
+    "records": "wire.ReadNullableBytes",
     "tag_buffer": "wire.ReadTagBuffer"
 }
 
@@ -245,9 +244,9 @@ writeFunctions = {
     "compact_nullable_string": "wire.WriteNullableString",
     "bytes": "wire.WriteBytes",
     "compact_bytes": "wire.WriteBytes",
-    "nullable_bytes": "wire.WriteBytes",
-    "compact_nullable_bytes": "wire.WriteBytes",
-    "records": "wire.WriteBytes",
+    "nullable_bytes": "wire.WriteNullableBytes",
+    "compact_nullable_bytes": "wire.WriteNullableBytes",
+    "records": "wire.WriteNullableBytes",
     "tag_buffer": "wire.WriteTagBuffer"
 }
 
